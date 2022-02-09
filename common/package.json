@@ -1,5 +1,16 @@
 {
-  "name": "@livechoice/common",
-  "version": "1.0.0",
-  "dependencies": {}
+   "name": "@livechoice/common",
+   "version": "1.0.0",
+   "main": "./dist/index.js",
+   "typings": "./dist/index.d.ts",
+   "files": [
+      "./dist"
+   ],
+   "scripts": {
+      "build": "tsc",
+      "build:watch": "tsc --watch"
+   },
+   "devDependencies": {
+      "typescript": "^4.5.5"
+   }
 }
