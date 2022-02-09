@@ -1,7 +1,4 @@
 {
-  "packages": [
-    "server",
-    "common"
-  ],
-  "version": "0.0.0"
+   "packages": ["server", "common"],
+   "version": "0.0.0"
 }
