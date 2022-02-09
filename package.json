@@ -1,0 +1,11 @@
+{
+   "name": "livechoice",
+   "private": true,
+   "workspaces": [
+      "packages/server",
+      "packages/common"
+   ],
+   "devDependencies": {
+      "lerna": "^4.0.0"
+   }
+}
