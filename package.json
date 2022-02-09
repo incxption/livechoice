@@ -3,8 +3,12 @@
    "private": true,
    "workspaces": [
       "server",
+      "client",
       "common"
    ],
+   "scripts": {
+      "start": "lerna run start:dev"
+   },
    "devDependencies": {
       "lerna": "^4.0.0"
    }
