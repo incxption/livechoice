@@ -1,0 +1,33 @@
+<nb-card>
+   <nb-card-header>Offene Aufgaben ({{ amountOfTodos }})</nb-card-header>
+   <nb-list>
+      <nb-list-item *ngFor="let todo of todos">
+         {{ todo }}
+         <button
+            nbButton
+            size="small"
+            status="primary"
+            class="align-right"
+            (click)="removeTodo(todo)"
+         >
+            Fertig
+         </button>
+      </nb-list-item>
+   </nb-list>
+   <nb-card-footer style="display: flex">
+      <input
+         class="todo-add-input"
+         type="text"
+         [(ngModel)]="newTodo"
+         (keydown.enter)="addTodo()"
+         nbInput
+         fullWidth
+      />
+      <button class="todo-add-button" nbButton size="medium" status="success" (click)="addTodo()">
+         Hinzufügen
+      </button>
+      <button class="align-right" nbButton size="medium" status="danger" (click)="clearTodos()">
+         Alle löschen
+      </button>
+   </nb-card-footer>
+</nb-card>
