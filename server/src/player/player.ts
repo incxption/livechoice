@@ -1,10 +1,6 @@
 import { Socket } from "socket.io"
 import { Room } from "../room/room"
-import { PlayerToken } from "./player-token"
-
-export type PlayerProperties = {
-   name: string
-}
+import { PlayerProperties, PlayerToken } from "@livechoice/common"
 
 export class Player {
    constructor(
@@ -16,8 +12,9 @@ export class Player {
 
    public joinedRoom() {
       this.token.used = true
+      this.room.moderator.updateTokens()
 
-      this.client.emit("room:joined", { roomId: this.room.id })
+      this.client.emit("room:joined", this.room.getInfo())
       this.client.emit("player:properties", this.properties)
 
       this.client.on("disconnect", () => this.disconnected())
@@ -30,5 +27,6 @@ export class Player {
 
    public disconnected() {
       this.token.used = false
+      this.room.moderator.updateTokens()
    }
 }

@@ -1,17 +1,29 @@
 import { Socket } from "socket.io"
 import { UnknownPlayer } from "../player/unknown-player"
-import { PlayerToken } from "../player/player-token"
+import { PlayerToken } from "@livechoice/common"
 import { Player } from "../player/player"
+import { Moderator } from "../player/moderator"
 
 export class Room {
-   playerTokens: PlayerToken[] = [new PlayerToken("mogo", { name: "Moritz Gößl" })]
+   playerTokens: PlayerToken[] = []
 
    private unknownPlayers: UnknownPlayer[] = []
    private players: Player[] = []
+   moderator: Moderator
 
    constructor(public id: string) {}
 
+   public initModerator(client: Socket) {
+      this.moderator = new Moderator(client, this)
+      this.moderator.createdRoom()
+   }
+
    public join(client: Socket) {
+      if (this.moderator.is(client)) {
+         this.moderator.joinedRoom()
+         return
+      }
+
       const unknownPlayer = new UnknownPlayer(client, this)
       this.unknownPlayers.push(unknownPlayer)
       unknownPlayer.requestAuthentication()
@@ -22,7 +34,16 @@ export class Room {
       player.joinedRoom()
    }
 
+   public addToken(token: PlayerToken) {
+      this.playerTokens.push(token)
+      this.moderator.updateTokens()
+   }
+
    public getPlayerByToken(token: PlayerToken) {
       return this.players.find(player => player.token === token)
+   }
+
+   getInfo() {
+      return { id: this.id }
    }
 }

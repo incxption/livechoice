@@ -17,14 +17,15 @@ import { TodoComponent } from "./todo/todo.component"
 import { FormsModule } from "@angular/forms"
 import { RoomComponent } from "./room/room.component"
 import { SocketIoConfig, SocketIoModule } from "ngx-socket-io"
-import { RoomService } from "./services/room.service"
+import { RoomService } from "./services/room.service";
+import { CreateComponent } from './create/create.component'
 
 const socketConfig: SocketIoConfig = {
    url: "http://localhost:2020"
 }
 
 @NgModule({
-   declarations: [AppComponent, TodoComponent, RoomComponent],
+   declarations: [AppComponent, TodoComponent, RoomComponent, CreateComponent],
    imports: [
       BrowserModule,
       AppRoutingModule,

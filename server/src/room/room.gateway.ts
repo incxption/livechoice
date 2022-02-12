@@ -38,7 +38,12 @@ export class RoomGateway implements OnGatewayConnection, OnGatewayDisconnect {
     * Handles the request of a player to join a room.
     */
    @SubscribeMessage("room:join")
-   async onJoin(client: Socket, roomId: string): Promise<void> {
+   onJoin(client: Socket, roomId: string) {
       this.roomService.joinRoom(client, roomId)
+   }
+
+   @SubscribeMessage("room:create")
+   onCreate(client: Socket) {
+      this.roomService.createRoom(client)
    }
 }

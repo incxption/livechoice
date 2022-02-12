@@ -8,4 +8,28 @@
    </div>
    <div *ngSwitchCase="'authentication-error'">Authentication error: {{ authenticationError }}</div>
    <div *ngSwitchCase="'joined'">Welcome to the room {{ playerName }}</div>
+   <div *ngSwitchCase="'moderating'">
+      <h2>Welcome to the moderation board of room {{ roomId }}</h2>
+      <nb-card>
+         <nb-card-header>Token</nb-card-header>
+         <nb-list>
+            <nb-list-item *ngFor="let token of tokens">
+               <p style="font-weight: bold; width: 40%">{{ token.key }}</p>
+               <p style="width: 40%">{{ token.properties.name }}</p>
+               <p style="width: 20%">{{ token.used ? "used" : "ununsed" }}</p>
+            </nb-list-item>
+         </nb-list>
+         <nb-card-footer>
+            <input #tokenKey type="text" placeholder="Key" nbInput />
+            <input #tokenName type="text" placeholder="Name" nbInput />
+            <button
+               nbButton
+               status="success"
+               (click)="roomService.createToken(tokenKey.value, tokenName.value)"
+            >
+               Create
+            </button>
+         </nb-card-footer>
+      </nb-card>
+   </div>
 </div>

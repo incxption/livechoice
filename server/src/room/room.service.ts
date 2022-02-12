@@ -4,7 +4,7 @@ import { Socket } from "socket.io"
 
 @Injectable()
 export class RoomService {
-   private rooms: Room[] = [new Room("test")]
+   private rooms: Room[] = []
 
    public joinRoom(client: Socket, roomId: string) {
       const room = this.findRoomById(roomId)
@@ -17,7 +17,18 @@ export class RoomService {
       room.join(client)
    }
 
+   public createRoom(client: Socket) {
+      const room = new Room(RoomService.generateRoomId())
+      this.rooms.push(room)
+
+      room.initModerator(client)
+   }
+
    public findRoomById(id: string): Room | undefined {
       return this.rooms.find(room => room.id === id)
+   }
+
+   private static generateRoomId() {
+      return (Math.random() * 647231).toString(14).replace(".", "").substring(1, 6)
    }
 }

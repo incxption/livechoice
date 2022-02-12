@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { RoomService } from "../services/room.service"
+import { PlayerToken } from "@livechoice/common"
 
 @UntilDestroy()
 @Component({
@@ -17,8 +18,9 @@ export class RoomComponent implements OnInit {
    authenticationError: string = ""
 
    playerName: string = ""
+   tokens: PlayerToken[] = []
 
-   constructor(private route: ActivatedRoute, private roomService: RoomService) {}
+   constructor(private route: ActivatedRoute, public roomService: RoomService) {}
 
    ngOnInit() {
       this.route.params.pipe(untilDestroyed(this)).subscribe(params => {
@@ -28,26 +30,19 @@ export class RoomComponent implements OnInit {
       })
 
       this.roomService.registerHandlers(this, on => {
-         on.roomNotFound(() => {
-            this.state = "room-not-found"
-         })
-
-         on.roomAuthenticationRequest(() => {
-            this.state = "authentication-request"
-         })
-
+         on.roomNotFound(() => (this.state = "room-not-found"))
+         on.roomAuthenticationRequest(() => (this.state = "authentication-request"))
          on.roomAuthenticationError(error => {
             this.state = "authentication-error"
             this.authenticationError = error
          })
-
-         on.roomJoined(() => {
-            this.state = "joined"
+         on.roomJoined(() => (this.state = "joined"))
+         on.roomModerating(() => {
+            console.log("moderating...")
+            return (this.state = "moderating")
          })
-
-         on.playerProperties(properties => {
-            this.playerName = properties.name
-         })
+         on.roomTokens(tokens => (this.tokens = tokens))
+         on.playerProperties(properties => (this.playerName = properties.name))
       })
    }
 

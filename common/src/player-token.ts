@@ -1,4 +1,4 @@
-import { PlayerProperties } from "./player"
+import { PlayerProperties } from "./player-properties"
 
 export class PlayerToken {
    public used: boolean = false
