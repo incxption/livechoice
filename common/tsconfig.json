@@ -12,8 +12,8 @@
       "strictFunctionTypes": true,
       "noImplicitThis": true,
       "rootDir": "src",
-      "outDir": "dist"
-   },
-   "include": ["src/**/*"],
-   "exclude": ["node_modules"]
+      "outDir": "dist",
+      "types": ["node"],
+      "typeRoots": []
+   }
 }

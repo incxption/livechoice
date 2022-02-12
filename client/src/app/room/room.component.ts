@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
-import { ChatService } from "../services/chat.service"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
+import { RoomService } from "../services/room.service"
 
 @UntilDestroy()
 @Component({
@@ -11,32 +11,47 @@ import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 })
 export class RoomComponent implements OnInit {
    roomId: string = ""
+   state = "joining"
 
-   users: number = 0
-   message: string = ""
-   messages: string[] = []
+   authenticationKey: string = ""
+   authenticationError: string = ""
 
-   constructor(private route: ActivatedRoute, private chatService: ChatService) {}
+   playerName: string = ""
 
-   async ngOnInit() {
-      this.route.queryParams
-         .pipe(untilDestroyed(this))
-         .subscribe(params => (this.roomId = params["id"]))
+   constructor(private route: ActivatedRoute, private roomService: RoomService) {}
 
-      this.chatService
-         .getChat()
-         .pipe(untilDestroyed(this))
-         .subscribe(message => this.messages.push(message))
+   ngOnInit() {
+      this.route.params.pipe(untilDestroyed(this)).subscribe(params => {
+         const id = params["id"]
+         this.roomId = id
+         this.roomService.joinRoom(id)
+      })
 
-      this.chatService
-         .getUsers()
-         .pipe(untilDestroyed(this))
-         .subscribe(users => (this.users = users))
+      this.roomService.registerHandlers(this, on => {
+         on.roomNotFound(() => {
+            this.state = "room-not-found"
+         })
+
+         on.roomAuthenticationRequest(() => {
+            this.state = "authentication-request"
+         })
+
+         on.roomAuthenticationError(error => {
+            this.state = "authentication-error"
+            this.authenticationError = error
+         })
+
+         on.roomJoined(() => {
+            this.state = "joined"
+         })
+
+         on.playerProperties(properties => {
+            this.playerName = properties.name
+         })
+      })
    }
 
-   sendChat() {
-      this.messages.push(this.message)
-      this.chatService.sendChat(this.message)
-      this.message = ""
+   authenticate() {
+      this.roomService.authenticate(this.authenticationKey)
    }
 }

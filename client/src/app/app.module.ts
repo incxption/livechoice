@@ -17,6 +17,7 @@ import { TodoComponent } from "./todo/todo.component"
 import { FormsModule } from "@angular/forms"
 import { RoomComponent } from "./room/room.component"
 import { SocketIoConfig, SocketIoModule } from "ngx-socket-io"
+import { RoomService } from "./services/room.service"
 
 const socketConfig: SocketIoConfig = {
    url: "http://localhost:2020"
@@ -38,7 +39,7 @@ const socketConfig: SocketIoConfig = {
       NbInputModule,
       FormsModule
    ],
-   providers: [],
+   providers: [RoomService],
    bootstrap: [AppComponent]
 })
 export class AppModule {}

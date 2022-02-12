@@ -1,20 +1,11 @@
-<nb-card>
-   <nb-card-header>Raum {{ roomId }} mit {{ users }} Nutzern</nb-card-header>
-   <nb-list>
-      <nb-list-item *ngFor="let item of messages">
-         {{ item }}
-      </nb-list-item>
-   </nb-list>
-   <nb-card-footer style="display: flex">
-      <input type="text" [(ngModel)]="message" (keydown.enter)="sendChat()" nbInput fullWidth />
-      <button
-         nbButton
-         size="medium"
-         status="success"
-         (click)="sendChat()"
-         style="margin-left: 15px"
-      >
-         Senden
-      </button>
-   </nb-card-footer>
-</nb-card>
+<h1>Room: {{ roomId }}</h1>
+<div [ngSwitch]="state">
+   <div *ngSwitchCase="'joining'">Joining</div>
+   <div *ngSwitchCase="'room-not-found'">Room not found</div>
+   <div *ngSwitchCase="'authentication-request'">
+      <input type="text" nbInput [(ngModel)]="authenticationKey" />
+      <button nbButton status="success" (click)="authenticate()">Authenticate</button>
+   </div>
+   <div *ngSwitchCase="'authentication-error'">Authentication error: {{ authenticationError }}</div>
+   <div *ngSwitchCase="'joined'">Welcome to the room {{ playerName }}</div>
+</div>
