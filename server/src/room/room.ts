@@ -12,9 +12,6 @@ export class Room {
    constructor(public id: string) {}
 
    public join(client: Socket) {
-      // TODO: prevent duplicate players
-      // TODO: support reconnecting
-
       const unknownPlayer = new UnknownPlayer(client, this)
       this.unknownPlayers.push(unknownPlayer)
       unknownPlayer.requestAuthentication()
@@ -23,5 +20,9 @@ export class Room {
    public addPlayer(player: Player) {
       this.players.push(player)
       player.joinedRoom()
+   }
+
+   public getPlayerByToken(token: PlayerToken) {
+      return this.players.find(player => player.token === token)
    }
 }

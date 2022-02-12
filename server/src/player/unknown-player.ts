@@ -25,6 +25,12 @@ export class UnknownPlayer {
          return
       }
 
+      const existing = this.room.getPlayerByToken(token)
+      if (existing) {
+         existing.reconnectedRoom(this.client)
+         return
+      }
+
       const player = new Player(this.client, this.room, token, token.properties)
       this.room.addPlayer(player)
    }
