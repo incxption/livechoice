@@ -1,0 +1,16 @@
+$color: rgba(250, 130, 49, 1);
+
+.round-icon {
+   background-color: rgba(250, 130, 49, 0.15);
+   color: $color;
+}
+
+.button {
+   color: #ffffff;
+   background-color: $color;
+   border-color: darken($color, 4%);
+
+   &:hover {
+      background-color: darken($color, 4%);
+   }
+}
