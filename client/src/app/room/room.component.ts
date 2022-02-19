@@ -19,7 +19,7 @@ export class RoomComponent implements OnInit {
    playerName: string = ""
    tokens: PlayerToken[] = []
 
-   constructor(private route: ActivatedRoute, public roomService: RoomService) {}
+   constructor(private route: ActivatedRoute, private roomService: RoomService) {}
 
    ngOnInit() {
       this.route.params.pipe(untilDestroyed(this)).subscribe(params => {
@@ -37,7 +37,6 @@ export class RoomComponent implements OnInit {
          })
          on.roomJoined(() => (this.state = "joined"))
          on.roomModerating(() => (this.state = "moderating"))
-         on.roomTokens(tokens => (this.tokens = tokens))
          on.playerProperties(properties => (this.playerName = properties.name))
       })
    }

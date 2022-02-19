@@ -5,6 +5,6 @@
    </div>
    <h1 class="title">{{ title }}</h1>
    <p class="message">{{ message }}</p>
-   <button *ngIf="isError" class="secondary-button" (click)="reload()">Erneut versuchen</button>
-   <button *ngIf="isLoading" class="secondary-button" (click)="navigateToHome()">Abbrechen</button>
+   <button *ngIf="isError" class="button" (click)="reload()">Erneut versuchen</button>
+   <button *ngIf="isLoading" class="button" (click)="navigateToHome()">Abbrechen</button>
 </div>

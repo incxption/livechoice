@@ -1,0 +1,25 @@
+<div class="container">
+   <h1 class="title">Moderator</h1>
+   <div class="box">
+      <h2 class="box-header">Authentifizierungsschlüssel</h2>
+      <div class="box-content">
+         <p class="placeholder" *ngIf="tokens.length === 0">Keine Schlüssel vorhanden</p>
+         <div class="token-item" *ngFor="let token of tokens">
+            <p class="col col-name">{{ token.properties.name }}</p>
+            <p class="col col-key">{{ token.key }}</p>
+            <p class="col col-used">
+               <span [class.used]="token.used">
+                  {{ token.used ? "Benutzt" : "Verfügbar" }}
+               </span>
+            </p>
+         </div>
+      </div>
+      <div class="box-footer">
+         <input #name type="text" class="input" placeholder="Name" />
+         <input #key type="text" class="input" placeholder="Schlüssel" />
+         <button class="button primary-button" (click)="createToken(key.value, name.value)">
+            Erstellen
+         </button>
+      </div>
+   </div>
+</div>
