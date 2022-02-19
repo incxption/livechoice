@@ -14,7 +14,6 @@ export class RoomComponent implements OnInit {
    roomId: string = ""
    state = "joining"
 
-   authenticationKey: string = ""
    authenticationError: string = ""
 
    playerName: string = ""
@@ -37,16 +36,13 @@ export class RoomComponent implements OnInit {
             this.authenticationError = error
          })
          on.roomJoined(() => (this.state = "joined"))
-         on.roomModerating(() => {
-            console.log("moderating...")
-            return (this.state = "moderating")
-         })
+         on.roomModerating(() => (this.state = "moderating"))
          on.roomTokens(tokens => (this.tokens = tokens))
          on.playerProperties(properties => (this.playerName = properties.name))
       })
    }
 
-   authenticate() {
-      this.roomService.authenticate(this.authenticationKey)
+   authenticate(key: string) {
+      this.roomService.authenticate(key)
    }
 }

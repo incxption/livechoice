@@ -10,6 +10,7 @@ export class Moderator {
 
    public createdRoom() {
       this.client.emit("room:created", this.room.getInfo())
+      this.logger.log(`Created room ${this.room.getInfo().id}`)
    }
 
    public joinedRoom() {
@@ -18,6 +19,7 @@ export class Moderator {
       })
 
       this.client.emit("room:moderating")
+      this.logger.log(`Joined room ${this.room.getInfo().id}`)
    }
 
    public updateTokens() {

@@ -1,12 +1,32 @@
-<h1>Room: {{ roomId }}</h1>
 <div [ngSwitch]="state">
-   <div *ngSwitchCase="'joining'">Joining</div>
-   <div *ngSwitchCase="'room-not-found'">Room not found</div>
-   <div *ngSwitchCase="'authentication-request'">
-      <input type="text" nbInput [(ngModel)]="authenticationKey" />
-      <button nbButton status="success" (click)="authenticate()">Authenticate</button>
-   </div>
-   <div *ngSwitchCase="'authentication-error'">Authentication error: {{ authenticationError }}</div>
+   <app-room-status
+      *ngSwitchCase="'joining'"
+      status="loading"
+      title="Beitreten"
+      message="Die Verbindung zum Raum wird hergestellt..."
+   ></app-room-status>
+
+   <app-room-status
+      *ngSwitchCase="'room-not-found'"
+      status="error"
+      title="Verbindung fehlgeschlagen"
+      message="Dieser Raum konnte nicht gefunden werden."
+   >
+   </app-room-status>
+
+   <app-room-status
+      *ngSwitchCase="'authentication-error'"
+      status="error"
+      title="Anmeldung fehlgeschlagen"
+      [message]="authenticationError"
+   ></app-room-status>
+
+   <app-room-authentication
+      *ngSwitchCase="'authentication-request'"
+      (submitAuthentication)="authenticate($event)"
+   >
+   </app-room-authentication>
+
    <div *ngSwitchCase="'joined'">Welcome to the room {{ playerName }}</div>
    <div *ngSwitchCase="'moderating'">
       <h2>Welcome to the moderation board of room {{ roomId }}</h2>

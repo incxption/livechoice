@@ -16,12 +16,12 @@ export class UnknownPlayer {
       const token = this.room.playerTokens.find(token => token.key === key)
 
       if (!token) {
-         this.client.emit("room:authentication:error", "key:invalid")
+         this.client.emit("room:authentication:error", "Der eingegebene Schlüssel ist ungültig.")
          return
       }
 
       if (token.used) {
-         this.client.emit("room:authentication:error", "key:used")
+         this.client.emit("room:authentication:error", "Der Schlüssel wurde bereits verwendet.")
          return
       }
 

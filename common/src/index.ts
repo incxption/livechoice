@@ -1,2 +1,2 @@
-export * from "./player-token"
-export * from "./player-properties"
+export * from "./player/player-token"
+export * from "./player/player-properties"

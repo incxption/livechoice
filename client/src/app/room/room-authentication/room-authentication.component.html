@@ -1,0 +1,16 @@
+<div class="centered-box">
+   <div class="round-icon">
+      <nb-icon icon="unlock"></nb-icon>
+   </div>
+   <h1 class="title">Authentifizierung</h1>
+   <p class="message">Bitte gib deinen Schlüssel zur Anmeldung ein.</p>
+   <div class="form">
+      <input
+         [(ngModel)]="input"
+         type="text"
+         class="input"
+         placeholder="Authentifizierungsschlüssel"
+      />
+      <button (click)="submit()" class="secondary-button confirm-button">Anmelden</button>
+   </div>
+</div>

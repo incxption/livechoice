@@ -1,0 +1,10 @@
+<div class="centered-box">
+   <div class="round-icon" [class.loading]="isLoading" [class.error]="isError">
+      <nb-icon *ngIf="isLoading" icon="arrow-circle-up"></nb-icon>
+      <nb-icon *ngIf="isError" icon="alert-circle"></nb-icon>
+   </div>
+   <h1 class="title">{{ title }}</h1>
+   <p class="message">{{ message }}</p>
+   <button *ngIf="isError" class="secondary-button" (click)="reload()">Erneut versuchen</button>
+   <button *ngIf="isLoading" class="secondary-button" (click)="navigateToHome()">Abbrechen</button>
+</div>

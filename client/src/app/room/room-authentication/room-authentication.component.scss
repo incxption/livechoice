@@ -1,0 +1,26 @@
+.round-icon {
+   background-color: rgba(32, 191, 107, 0.15);
+   color: rgba(32, 191, 107, 1);
+   padding: 15px;
+}
+
+.form {
+   display: flex;
+   flex-direction: row;
+
+   margin-top: 2rem;
+   width: 100%;
+}
+
+.input {
+   flex-grow: 1;
+}
+
+.confirm-button {
+   margin-top: 0;
+   margin-left: 0.5rem;
+
+   color: #ffffff;
+   background-color: rgb(32, 191, 107);
+   border-color: darken(rgb(32, 191, 107), 4%);
+}
