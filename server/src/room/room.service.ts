@@ -17,8 +17,8 @@ export class RoomService {
       room.join(client)
    }
 
-   public createRoom(client: Socket) {
-      const room = new Room(RoomService.generateRoomId())
+   public createRoom(client: Socket, roomName: string) {
+      const room = new Room(RoomService.generateRoomId(), roomName)
       this.rooms.push(room)
 
       room.initModerator(client)

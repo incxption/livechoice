@@ -1,6 +1,6 @@
 import { Socket } from "socket.io"
 import { UnknownPlayer } from "../player/unknown-player"
-import { PlayerToken } from "@livechoice/common"
+import { PlayerToken, RoomInfo } from "@livechoice/common"
 import { Player } from "../player/player"
 import { Moderator } from "../player/moderator"
 
@@ -11,7 +11,7 @@ export class Room {
    private players: Player[] = []
    moderator: Moderator
 
-   constructor(public id: string) {}
+   constructor(public id: string, public name: string) {}
 
    public initModerator(client: Socket) {
       this.moderator = new Moderator(client, this)
@@ -43,7 +43,7 @@ export class Room {
       return this.players.find(player => player.token === token)
    }
 
-   getInfo() {
-      return { id: this.id }
+   public getInfo(): RoomInfo {
+      return { id: this.id, name: this.name }
    }
 }

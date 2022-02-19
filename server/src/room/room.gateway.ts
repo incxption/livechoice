@@ -43,7 +43,7 @@ export class RoomGateway implements OnGatewayConnection, OnGatewayDisconnect {
    }
 
    @SubscribeMessage("room:create")
-   onCreate(client: Socket) {
-      this.roomService.createRoom(client)
+   onCreate(client: Socket, roomName: string) {
+      this.roomService.createRoom(client, roomName)
    }
 }

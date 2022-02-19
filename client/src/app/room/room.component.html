@@ -27,7 +27,7 @@
    >
    </app-room-authentication>
 
-   <app-room-moderator *ngSwitchCase="'moderating'"> </app-room-moderator>
+   <app-room-moderator *ngSwitchCase="'moderating'" [roomName]="roomName"> </app-room-moderator>
 
    <div *ngSwitchCase="'joined'">Welcome to the room {{ playerName }}</div>
 </div>

@@ -4,5 +4,8 @@
    </div>
    <h1 class="title">Neuer Raum</h1>
    <p class="message">Eröffne einen neuen Raum, den du moderieren kannst.</p>
-   <button class="button" (click)="createRoom()">Raum erstellen</button>
+   <div class="form">
+      <input type="text" class="input" placeholder="Raumname" [(ngModel)]="roomName" />
+      <button (click)="createRoom()" class="button primary-button">Erstellen</button>
+   </div>
 </div>

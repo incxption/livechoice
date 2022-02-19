@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core"
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core"
 import { RoomService } from "../../services/room.service"
 import { PlayerToken } from "@livechoice/common"
 import { UntilDestroy } from "@ngneat/until-destroy"
@@ -11,6 +11,8 @@ import { UntilDestroy } from "@ngneat/until-destroy"
 })
 export class ModeratorComponent implements OnInit {
    tokens: PlayerToken[] = []
+
+   @Input() roomName!: string
 
    @ViewChild("key") keyInput!: ElementRef<HTMLInputElement>
    @ViewChild("name") nameInput!: ElementRef<HTMLInputElement>

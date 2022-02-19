@@ -12,6 +12,7 @@ import { PlayerToken } from "@livechoice/common"
 })
 export class RoomComponent implements OnInit {
    roomId: string = ""
+   roomName: string = ""
    state = "joining"
 
    authenticationError: string = ""
@@ -35,8 +36,17 @@ export class RoomComponent implements OnInit {
             this.state = "authentication-error"
             this.authenticationError = error
          })
-         on.roomJoined(() => (this.state = "joined"))
-         on.roomModerating(() => (this.state = "moderating"))
+
+         on.roomJoined(({ name }) => {
+            this.state = "joined"
+            this.roomName = name
+         })
+
+         on.roomModerating(({ name }) => {
+            this.state = "moderating"
+            this.roomName = name
+         })
+
          on.playerProperties(properties => (this.playerName = properties.name))
       })
    }

@@ -5,7 +5,22 @@ $color: rgba(250, 130, 49, 1);
    color: $color;
 }
 
+.form {
+   display: flex;
+   flex-direction: row;
+
+   margin-top: 2rem;
+   width: 100%;
+}
+
+.input {
+   flex-grow: 1;
+}
+
 .button {
+   margin-top: 0;
+   margin-left: 0.5rem;
+
    color: #ffffff;
    background-color: $color;
    border-color: darken($color, 4%);

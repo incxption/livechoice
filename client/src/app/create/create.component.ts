@@ -9,6 +9,8 @@ import { UntilDestroy } from "@ngneat/until-destroy"
    styleUrls: ["./create.component.scss"]
 })
 export class CreateComponent implements OnInit {
+   roomName: string = ""
+
    constructor(private createService: CreateService) {}
 
    ngOnInit(): void {
@@ -16,6 +18,9 @@ export class CreateComponent implements OnInit {
    }
 
    createRoom() {
-      this.createService.createRoom()
+      if (this.roomName === "") return
+
+      this.createService.createRoom(this.roomName)
+      this.roomName = ""
    }
 }

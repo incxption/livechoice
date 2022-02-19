@@ -9,8 +9,8 @@ import { untilDestroyed } from "@ngneat/until-destroy"
 export class CreateService {
    constructor(private socket: Socket, private router: Router) {}
 
-   public createRoom() {
-      this.socket.emit("room:create")
+   public createRoom(name: string) {
+      this.socket.emit("room:create", name)
    }
 
    public handleRoomCreated(instance: any) {
