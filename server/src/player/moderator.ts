@@ -18,6 +18,10 @@ export class Moderator {
          this.room.addToken(token)
       })
 
+      this.client.on("room:questions:load", (input: string) => {
+         this.room.loadQuestions(input)
+      })
+
       this.client.emit("room:moderating", this.room.getInfo())
       this.logger.log(`Joined room ${this.room.getInfo().id}`)
    }

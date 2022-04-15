@@ -11,6 +11,7 @@
       "strictNullChecks": true,
       "strictFunctionTypes": true,
       "noImplicitThis": true,
+      "strictPropertyInitialization": false,
       "rootDir": "src",
       "outDir": "dist",
       "types": ["node"],

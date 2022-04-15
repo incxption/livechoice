@@ -1,3 +1,18 @@
 export class Question {
-   constructor(public number: number, public prompt: string) {}
+   // general properties
+   public number: number
+   public name: string
+   public prompt: string
+   public type: "multiple-choice" | "input"
+
+   // multiple choice properties
+   public choices: Choice[]
+
+   // input properties
+   public correctAnswers: number[]
+}
+
+export interface Choice {
+   text: string
+   correct: boolean
 }

@@ -1,7 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core"
 import { RoomService } from "../../services/room.service"
-import { PlayerToken } from "@livechoice/common"
+import { PlayerToken, Question, Serializer } from "@livechoice/common"
 import { UntilDestroy } from "@ngneat/until-destroy"
+import { FileHelperService } from "../../services/file-helper.service"
 
 @UntilDestroy()
 @Component({
@@ -11,13 +12,14 @@ import { UntilDestroy } from "@ngneat/until-destroy"
 })
 export class ModeratorComponent implements OnInit {
    tokens: PlayerToken[] = []
+   questions: Question[] = []
 
    @Input() roomName!: string
 
    @ViewChild("key") keyInput!: ElementRef<HTMLInputElement>
    @ViewChild("name") nameInput!: ElementRef<HTMLInputElement>
 
-   constructor(private roomService: RoomService) {}
+   constructor(private roomService: RoomService, private fileHelper: FileHelperService) {}
 
    ngOnInit(): void {
       this.roomService.registerHandlers(this, on => {
@@ -34,5 +36,12 @@ export class ModeratorComponent implements OnInit {
       this.nameInput.nativeElement.value = ""
 
       this.roomService.createToken(name, key)
+   }
+
+   async importQuestions() {
+      const input = await this.fileHelper.readTextFromFile()
+
+      this.questions = Serializer.deserializeQuestions(input)
+      this.roomService.loadQuestions(input)
    }
 }

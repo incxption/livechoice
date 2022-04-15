@@ -1,13 +1,13 @@
 import { Socket } from "socket.io"
 import { UnknownPlayer } from "../player/unknown-player"
-import { PlayerToken, RoomInfo } from "@livechoice/common"
+import { PlayerToken, Question, RoomInfo, Serializer } from "@livechoice/common"
 import { Player } from "../player/player"
 import { Moderator } from "../player/moderator"
 
 export class Room {
    playerTokens: PlayerToken[] = []
+   questions: Question[] = []
 
-   private unknownPlayers: UnknownPlayer[] = []
    private players: Player[] = []
    moderator: Moderator
 
@@ -25,7 +25,6 @@ export class Room {
       }
 
       const unknownPlayer = new UnknownPlayer(client, this)
-      this.unknownPlayers.push(unknownPlayer)
       unknownPlayer.requestAuthentication()
    }
 
@@ -37,6 +36,10 @@ export class Room {
    public addToken(token: PlayerToken) {
       this.playerTokens.push(token)
       this.moderator.updateTokens()
+   }
+
+   public loadQuestions(input: string) {
+      this.questions = Serializer.deserializeQuestions(input)
    }
 
    public getPlayerByToken(token: PlayerToken) {

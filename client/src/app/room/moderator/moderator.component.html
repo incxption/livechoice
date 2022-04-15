@@ -5,10 +5,10 @@
       <h2 class="box-header">Authentifizierungsschlüssel</h2>
       <div class="box-content">
          <p class="placeholder" *ngIf="tokens.length === 0">Keine Schlüssel vorhanden</p>
-         <div class="token-item" *ngFor="let token of tokens">
-            <p class="col col-name">{{ token.properties.name }}</p>
-            <p class="col col-key">{{ token.key }}</p>
-            <p class="col col-used">
+         <div class="row" *ngFor="let token of tokens">
+            <p class="col token-name">{{ token.properties.name }}</p>
+            <p class="col token-key">{{ token.key }}</p>
+            <p class="col token-used">
                <span [class.used]="token.used">
                   {{ token.used ? "Benutzt" : "Verfügbar" }}
                </span>
@@ -21,6 +21,24 @@
          <button class="button primary-button" (click)="createToken(key.value, name.value)">
             Erstellen
          </button>
+      </div>
+   </div>
+   <div class="box">
+      <h2 class="box-header">Fragen</h2>
+      <div class="box-content">
+         <p class="placeholder" *ngIf="questions.length === 0">Keine Fragen vorhanden</p>
+         <div class="row" *ngFor="let question of questions">
+            <div class="col question-number">{{ question.number }}</div>
+            <div class="col question-name">{{ question.name }}</div>
+            <div class="col question-type">
+               <span>
+                  {{ question.type }}
+               </span>
+            </div>
+         </div>
+      </div>
+      <div class="box-footer">
+         <button class="button primary-button" (click)="importQuestions()">Importieren</button>
       </div>
    </div>
 </div>

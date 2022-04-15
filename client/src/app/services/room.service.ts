@@ -33,6 +33,10 @@ export class RoomService {
       this.socket.emit("room:tokens:create", new PlayerToken(key, { name }))
    }
 
+   public loadQuestions(input: string) {
+      this.socket.emit("room:questions:load", input)
+   }
+
    public registerHandlers(instance: any, block: (on: HandlerBlock) => void) {
       const socket = this.socket
 
