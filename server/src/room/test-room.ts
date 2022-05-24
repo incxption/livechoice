@@ -10,6 +10,7 @@ export class TestRoom extends Room {
    public join(client: Socket) {
       if (!this.moderator) {
          this.initModerator(client)
+         this.moderator.joinedRoom()
 
          client.on("disconnect", () => {
             this.moderator = undefined
@@ -21,10 +22,13 @@ export class TestRoom extends Room {
             for (let i = 1; i <= 5; i++) {
                this.addToken(new PlayerToken(random(), { name: "Spieler " + i }))
             }
-         }, 300)
+         }, 500)
+         return
       }
 
       const player = super.join(client)
+      if (!player) return
+
       const token = this.playerTokens.find(t => !t.used)
       player.handleAuthenticationResponse(token.key)
 
