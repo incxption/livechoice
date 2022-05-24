@@ -12,7 +12,7 @@ export class UnknownPlayer {
       this.client.emit("room:authentication:request")
    }
 
-   private handleAuthenticationResponse(key: string) {
+   public handleAuthenticationResponse(key: string) {
       const token = this.room.playerTokens.find(token => token.key === key)
 
       if (!token) {

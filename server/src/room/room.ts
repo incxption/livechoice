@@ -26,6 +26,8 @@ export class Room {
 
       const unknownPlayer = new UnknownPlayer(client, this)
       unknownPlayer.requestAuthentication()
+
+      return unknownPlayer
    }
 
    public addPlayer(player: Player) {

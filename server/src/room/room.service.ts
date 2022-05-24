@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common"
 import { Room } from "./room"
 import { Socket } from "socket.io"
-import { PlayerToken } from "@livechoice/common"
+import { TestRoom } from "./test-room"
 
 @Injectable()
 export class RoomService {
-   private rooms: Room[] = [new Room("debug", "Debug Room")]
+   private rooms: Room[] = [new TestRoom()]
 
    public joinRoom(client: Socket, roomId: string) {
       const room = this.findRoomById(roomId)
@@ -19,18 +19,6 @@ export class RoomService {
    }
 
    public createRoom(client: Socket, roomName: string) {
-      if (roomName === "debug") {
-         const room = this.rooms[0]
-         room.initModerator(client)
-
-         setTimeout(() => {
-            room.playerTokens = []
-            room.addToken(new PlayerToken("one", { name: "Test 1" }))
-            room.addToken(new PlayerToken("two", { name: "Test 2" }))
-         }, 300)
-         return
-      }
-
       const room = new Room(RoomService.generateRoomId(), roomName)
       this.rooms.push(room)
 
