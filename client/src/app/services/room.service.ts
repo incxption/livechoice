@@ -56,4 +56,8 @@ export class RoomService {
          playerProperties: createHandlerFunction<PlayerProperties>("player:properties")
       })
    }
+
+   public startRoom() {
+      this.socket.emit("room:start")
+   }
 }

@@ -18,7 +18,7 @@ export class TestRoom extends Room {
 
          this.playerTokens = []
          for (let i = 1; i <= 5; i++) {
-            this.addToken(new PlayerToken(random(), { name: "Spieler " + i }))
+            this.addToken(new PlayerToken(random(), { name: `Spieler ${i}` }))
          }
 
          return

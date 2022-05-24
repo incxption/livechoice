@@ -39,6 +39,10 @@
       </div>
       <div class="box-footer">
          <button class="button primary-button" (click)="importQuestions()">Importieren</button>
+         <button class="button primary-button" (click)="deleteAllQuestions()">Alle löschen</button>
       </div>
+   </div>
+   <div class="start" [class.disabled]="questions.length === 0">
+      <nb-icon icon="play-circle"></nb-icon>
    </div>
 </div>

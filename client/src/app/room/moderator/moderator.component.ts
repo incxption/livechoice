@@ -44,4 +44,13 @@ export class ModeratorComponent implements OnInit {
       this.questions = Serializer.deserializeQuestions(input)
       this.roomService.loadQuestions(input)
    }
+
+   deleteAllQuestions() {
+      this.questions = []
+      this.roomService.loadQuestions("[]")
+   }
+
+   startRoom() {
+      this.roomService.startRoom()
+   }
 }
