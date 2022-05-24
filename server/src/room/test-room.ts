@@ -16,13 +16,11 @@ export class TestRoom extends Room {
             this.moderator = undefined
          })
 
-         setTimeout(() => {
-            this.playerTokens = []
+         this.playerTokens = []
+         for (let i = 1; i <= 5; i++) {
+            this.addToken(new PlayerToken(random(), { name: "Spieler " + i }))
+         }
 
-            for (let i = 1; i <= 5; i++) {
-               this.addToken(new PlayerToken(random(), { name: "Spieler " + i }))
-            }
-         }, 500)
          return
       }
 
