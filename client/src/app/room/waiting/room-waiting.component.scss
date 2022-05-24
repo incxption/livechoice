@@ -1,0 +1,48 @@
+.container {
+   padding: 1rem 2rem;
+   height: 100vh;
+   background-color: #4b7bec;
+
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.room-name {
+   margin-bottom: 8px;
+
+   color: #ffffff;
+
+   font-weight: 700;
+   font-size: 3.25rem;
+}
+
+.room-message {
+   color: #ffffff;
+   opacity: 75%;
+
+   font-weight: 400;
+   font-size: 1.5rem;
+}
+
+.player-name {
+   position: fixed;
+   bottom: 3rem;
+
+   width: 300px;
+   padding: 0.6rem 1.6rem;
+
+   border-radius: 6px;
+   background-color: #ffffff;
+   box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.4);
+
+   color: rgba(0, 0, 0, 0.85);
+   font-size: 1.125rem;
+   text-align: center;
+
+   b {
+      font-weight: 500;
+      color: #375cb5;
+   }
+}

@@ -20,16 +20,26 @@ import { RoomComponent } from "./room/room.component"
 import { SocketIoConfig, SocketIoModule } from "ngx-socket-io"
 import { RoomService } from "./services/room.service"
 import { CreateComponent } from "./create/create.component"
-import { RoomStatusComponent } from "./room/room-status/room-status.component";
-import { RoomAuthenticationComponent } from './room/room-authentication/room-authentication.component';
-import { ModeratorComponent } from './room/moderator/moderator.component'
+import { RoomStatusComponent } from "./room/room-status/room-status.component"
+import { RoomAuthenticationComponent } from "./room/room-authentication/room-authentication.component"
+import { ModeratorComponent } from "./room/moderator/moderator.component"
+import { RoomWaitingComponent } from "./room/waiting/room-waiting.component"
 
 const socketConfig: SocketIoConfig = {
    url: "http://localhost:2020"
 }
 
 @NgModule({
-   declarations: [AppComponent, TodoComponent, RoomComponent, CreateComponent, RoomStatusComponent, RoomAuthenticationComponent, ModeratorComponent],
+   declarations: [
+      AppComponent,
+      TodoComponent,
+      RoomComponent,
+      CreateComponent,
+      RoomStatusComponent,
+      RoomAuthenticationComponent,
+      ModeratorComponent,
+      RoomWaitingComponent
+   ],
    imports: [
       BrowserModule,
       AppRoutingModule,
