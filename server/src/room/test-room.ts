@@ -11,6 +11,10 @@ export class TestRoom extends Room {
       if (!this.moderator) {
          this.initModerator(client)
 
+         client.on("disconnect", () => {
+            this.moderator = undefined
+         })
+
          setTimeout(() => {
             this.playerTokens = []
 

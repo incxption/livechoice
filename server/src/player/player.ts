@@ -27,6 +27,6 @@ export class Player {
 
    public disconnected() {
       this.token.used = false
-      this.room.moderator.updateTokens()
+      this.room.moderator?.updateTokens()
    }
 }
