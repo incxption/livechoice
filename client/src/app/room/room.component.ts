@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { RoomService } from "../services/room.service"
-import { PlayerToken } from "@livechoice/common"
+import { Question } from "@livechoice/common"
 
 @UntilDestroy()
 @Component({
@@ -15,10 +15,10 @@ export class RoomComponent implements OnInit {
    roomName: string = ""
    state = "joining"
 
-   authenticationError: string = ""
+   question: Question | undefined
 
+   authenticationError: string = ""
    playerName: string = ""
-   tokens: PlayerToken[] = []
 
    constructor(private route: ActivatedRoute, private roomService: RoomService) {}
 
@@ -48,6 +48,16 @@ export class RoomComponent implements OnInit {
          })
 
          on.playerProperties(properties => (this.playerName = properties.name))
+
+         on.questionPrompt(question => {
+            this.question = question
+            this.state = "question-prompt"
+         })
+
+         on.questionDisplay(question => {
+            this.question = question
+            this.state = "question-display"
+         })
       })
    }
 

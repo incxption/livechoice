@@ -7,6 +7,7 @@ import { Moderator } from "../player/moderator"
 export class Room {
    playerTokens: PlayerToken[] = []
    questions: Question[] = []
+   questionIndex: number = 0
 
    private players: Player[] = []
    moderator: Moderator
@@ -42,6 +43,18 @@ export class Room {
 
    public loadQuestions(input: string) {
       this.questions = Serializer.deserializeQuestions(input)
+   }
+
+   public start() {
+      this.questionIndex = 0
+      this.activateQuestion(this.questions[0])
+   }
+
+   public activateQuestion(question: Question) {
+      this.moderator.displayQuestion(question)
+      for (const player of this.players) {
+         player.promptQuestion(question)
+      }
    }
 
    public getPlayerByToken(token: PlayerToken) {

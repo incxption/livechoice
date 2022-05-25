@@ -1,0 +1,26 @@
+.answer-grid {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   grid-template-rows: repeat(2, 1fr);
+   grid-gap: 2rem;
+
+   width: 800px;
+   height: 300px;
+}
+
+.answer {
+   outline: none;
+   border: 2px solid #d9d9d9;
+   border-radius: 0.5rem;
+   background-color: #ffffff;
+   box-shadow: 0 0 25px -5px rgba(0, 0, 0, 0.2);
+
+   font-size: 3rem;
+   font-weight: 600;
+   cursor: pointer;
+}
+
+.fixed-toast {
+   bottom: 3rem;
+   font-size: 1.5rem;
+}

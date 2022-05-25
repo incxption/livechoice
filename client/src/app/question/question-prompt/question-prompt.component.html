@@ -1,0 +1,22 @@
+<div class="blue-container">
+   <div class="question-header">
+      <p class="question-number">Frage {{ question.number }}</p>
+      <h1 class="question-name">{{ question.name }}</h1>
+   </div>
+
+   <div [ngSwitch]="question.type">
+      <div *ngSwitchCase="'multiple-choice'" class="answer-grid">
+         <button *ngFor="let answer of question.answers" class="answer">{{ answer.text }}</button>
+      </div>
+      <div *ngSwitchCase="'input'">
+         <input type="text" name="Antwort" id="answer" />
+      </div>
+   </div>
+
+   <div class="fixed-toast" [ngSwitch]="question.type">
+      <span *ngSwitchCase="'multiple-choice'">Klicke auf die richtige Antwort.</span>
+      <span *ngSwitchCase="'input'"
+         >Gib die richtige Antwort ein, und klicke auf <b>Bestätigen</b>.</span
+      >
+   </div>
+</div>

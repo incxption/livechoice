@@ -27,8 +27,14 @@
    >
    </app-room-authentication>
 
-   <app-room-moderator *ngSwitchCase="'moderating'" [roomName]="roomName"> </app-room-moderator>
-
    <app-room-waiting *ngSwitchCase="'joined'" [roomName]="roomName" [playerName]="playerName">
    </app-room-waiting>
+
+   <app-room-moderator *ngSwitchCase="'moderating'" [roomName]="roomName"> </app-room-moderator>
+
+   <app-question-display *ngSwitchCase="'question-display'" [question]="question!">
+   </app-question-display>
+
+   <app-question-prompt *ngSwitchCase="'question-prompt'" [question]="question!">
+   </app-question-prompt>
 </div>

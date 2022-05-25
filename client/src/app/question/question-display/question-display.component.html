@@ -1,0 +1,17 @@
+<div class="blue-container">
+   <div class="question-header">
+      <p class="question-number">Frage {{ question.number }}</p>
+      <h1 class="question-name">{{ question.name }}</h1>
+   </div>
+
+   <h2 class="prompt">{{ question.prompt }}</h2>
+
+   <div class="fixed-toast" [ngSwitch]="question.type">
+      <span *ngSwitchCase="'multiple-choice'">
+         Klicke die richtige Antwort auf deinem Gerät an.
+      </span>
+      <span *ngSwitchCase="'input'">
+         Gib die richtige Antwort auf deinem Gerät ein, und klicke auf <b>Bestätigen</b>.
+      </span>
+   </div>
+</div>

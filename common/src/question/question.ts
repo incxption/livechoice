@@ -6,7 +6,7 @@ export class Question {
    public type: "multiple-choice" | "input"
 
    // multiple choice properties
-   public choices: Choice[]
+   public answers: Choice[]
 
    // input properties
    public correctAnswers: number[]

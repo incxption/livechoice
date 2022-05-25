@@ -51,6 +51,8 @@ export class ModeratorComponent implements OnInit {
    }
 
    startRoom() {
+      if (this.questions.length === 0) return
+
       this.roomService.startRoom()
    }
 }

@@ -1,6 +1,6 @@
 import { Socket } from "socket.io"
 import { Room } from "../room/room"
-import { PlayerProperties, PlayerToken } from "@livechoice/common"
+import { PlayerProperties, PlayerToken, Question } from "@livechoice/common"
 
 export class Player {
    constructor(
@@ -28,5 +28,9 @@ export class Player {
    public disconnected() {
       this.token.used = false
       this.room.moderator?.updateTokens()
+   }
+
+   public promptQuestion(question: Question) {
+      this.client.emit("question:prompt", question)
    }
 }

@@ -1,6 +1,6 @@
 import { Socket } from "socket.io"
 import { Room } from "../room/room"
-import { PlayerToken } from "@livechoice/common"
+import { PlayerToken, Question } from "@livechoice/common"
 import { Logger } from "@nestjs/common"
 
 export class Moderator {
@@ -22,12 +22,20 @@ export class Moderator {
          this.room.loadQuestions(input)
       })
 
+      this.client.on("room:start", () => {
+         this.room.start()
+      })
+
       this.client.emit("room:moderating", this.room.getInfo())
       this.logger.log(`Joined room ${this.room.getInfo().id}`)
    }
 
    public updateTokens() {
       this.client.emit("room:tokens", this.room.playerTokens)
+   }
+
+   public displayQuestion(question: Question) {
+      this.client.emit("question:display", question)
    }
 
    public is(client: Socket) {

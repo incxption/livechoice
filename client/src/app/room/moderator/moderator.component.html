@@ -42,7 +42,7 @@
          <button class="button primary-button" (click)="deleteAllQuestions()">Alle löschen</button>
       </div>
    </div>
-   <div class="start" [class.disabled]="questions.length === 0">
+   <div class="start" [class.disabled]="questions.length === 0" (click)="startRoom()">
       <nb-icon icon="play-circle"></nb-icon>
    </div>
 </div>

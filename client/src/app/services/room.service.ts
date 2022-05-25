@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import { Socket } from "ngx-socket-io"
 import { untilDestroyed } from "@ngneat/until-destroy"
-import { PlayerProperties, PlayerToken, RoomInfo } from "@livechoice/common"
+import { PlayerProperties, PlayerToken, Question, RoomInfo } from "@livechoice/common"
 
 type HandlerBlock = {
    roomNotFound: HandlerFunction<void>
@@ -11,6 +11,8 @@ type HandlerBlock = {
    roomModerating: HandlerFunction<RoomInfo>
    roomTokens: HandlerFunction<PlayerToken[]>
    playerProperties: HandlerFunction<PlayerProperties>
+   questionDisplay: HandlerFunction<Question>
+   questionPrompt: HandlerFunction<Question>
 }
 
 type HandlerFunction<T> = (callback: (data: T) => void) => void
@@ -53,7 +55,9 @@ export class RoomService {
          roomJoined: createHandlerFunction<RoomInfo>("room:joined"),
          roomModerating: createHandlerFunction<RoomInfo>("room:moderating"),
          roomTokens: createHandlerFunction<PlayerToken[]>("room:tokens"),
-         playerProperties: createHandlerFunction<PlayerProperties>("player:properties")
+         playerProperties: createHandlerFunction<PlayerProperties>("player:properties"),
+         questionDisplay: createHandlerFunction<Question>("question:display"),
+         questionPrompt: createHandlerFunction<Question>("question:prompt")
       })
    }
 
