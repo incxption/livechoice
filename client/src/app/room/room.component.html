@@ -35,6 +35,10 @@
    <app-question-display *ngSwitchCase="'question-display'" [question]="question!">
    </app-question-display>
 
-   <app-question-prompt *ngSwitchCase="'question-prompt'" [question]="question!">
+   <app-question-prompt
+      *ngSwitchCase="'question-prompt'"
+      [question]="question!"
+      [onlyRead]="onlyRead"
+   >
    </app-question-prompt>
 </div>

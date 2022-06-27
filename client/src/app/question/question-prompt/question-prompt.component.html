@@ -4,7 +4,7 @@
       <h1 class="question-name">{{ question.name }}</h1>
    </div>
 
-   <div [ngSwitch]="question.type">
+   <div *ngIf="!onlyRead" [ngSwitch]="question.type">
       <div *ngSwitchCase="'multiple-choice'" class="answer-grid">
          <button *ngFor="let answer of question.answers" class="answer">{{ answer.text }}</button>
       </div>
@@ -13,10 +13,21 @@
       </div>
    </div>
 
-   <div class="fixed-toast" [ngSwitch]="question.type">
+   <div
+      class="fixed-toast"
+      [ngSwitch]="question.type"
+      [class.bigger-toast]="onlyRead"
+      [ngStyle]="{ 'animation-duration': onlyReadDuration + 's' }"
+   >
       <span *ngSwitchCase="'multiple-choice'">Klicke auf die richtige Antwort.</span>
-      <span *ngSwitchCase="'input'"
-         >Gib die richtige Antwort ein, und klicke auf <b>Bestätigen</b>.</span
-      >
+      <span *ngSwitchCase="'input'">
+         Gib die richtige Antwort ein, und klicke auf <b>Bestätigen</b>.
+      </span>
    </div>
+
+   <span
+      *ngIf="onlyRead"
+      class="progress-bar"
+      [ngStyle]="{ 'animation-duration': onlyReadDuration + 's' }"
+   ></span>
 </div>

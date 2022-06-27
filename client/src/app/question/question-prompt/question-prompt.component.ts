@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core"
+import { Component, Input } from "@angular/core"
 import { Question } from "@livechoice/common"
+
+export const ONLY_READ_DURATION = 5_000
 
 @Component({
    selector: "app-question-prompt",
@@ -8,4 +10,7 @@ import { Question } from "@livechoice/common"
 })
 export class QuestionPromptComponent {
    @Input() question!: Question
+   @Input() onlyRead!: boolean
+
+   readonly onlyReadDuration = ONLY_READ_DURATION / 1000
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { RoomService } from "../services/room.service"
 import { Question } from "@livechoice/common"
+import { ONLY_READ_DURATION } from "../question/question-prompt/question-prompt.component"
 
 @UntilDestroy()
 @Component({
@@ -16,6 +17,7 @@ export class RoomComponent implements OnInit {
    state = "joining"
 
    question: Question | undefined
+   onlyRead: boolean = false
 
    authenticationError: string = ""
    playerName: string = ""
@@ -29,6 +31,7 @@ export class RoomComponent implements OnInit {
          this.roomService.joinRoom(id)
       })
 
+      let onlyReadTimeoutId = -1
       this.roomService.registerHandlers(this, on => {
          on.roomNotFound(() => (this.state = "room-not-found"))
          on.roomAuthenticationRequest(() => (this.state = "authentication-request"))
@@ -51,7 +54,13 @@ export class RoomComponent implements OnInit {
 
          on.questionPrompt(question => {
             this.question = question
+            this.onlyRead = true
             this.state = "question-prompt"
+
+            clearTimeout(onlyReadTimeoutId)
+            onlyReadTimeoutId = setTimeout(() => {
+               this.onlyRead = false
+            }, ONLY_READ_DURATION)
          })
 
          on.questionDisplay(question => {
