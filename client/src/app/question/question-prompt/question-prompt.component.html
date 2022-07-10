@@ -4,7 +4,7 @@
       <h1 class="question-name">{{ question.name }}</h1>
    </div>
 
-   <div *ngIf="!onlyRead && !isAnswered" [ngSwitch]="question.type">
+   <div *ngIf="!onlyRead && !isEffectivelyAnswered" [ngSwitch]="question.type">
       <div *ngSwitchCase="'multiple-choice'" class="answer-grid">
          <button
             *ngFor="let answer of question.answers; index as i"
@@ -20,7 +20,7 @@
    </div>
 
    <div
-      *ngIf="!isAnswered"
+      *ngIf="!isEffectivelyAnswered"
       class="fixed-toast"
       [ngSwitch]="question.type"
       [ngStyle]="{ 'animation-duration': onlyReadDuration + 's' }"
@@ -33,12 +33,16 @@
    </div>
 
    <span
-      *ngIf="onlyRead"
+      *ngIf="!isEffectivelyAnswered"
       class="progress-bar"
-      [ngStyle]="{ 'animation-duration': onlyReadDuration + 's' }"
+      [class.up]="onlyRead"
+      [class.down]="!onlyRead"
+      [ngStyle]="{
+         'animation-duration': (onlyRead ? onlyReadDuration : question.timeout) + 's'
+      }"
    ></span>
 
-   <div *ngIf="isAnswered">
+   <div *ngIf="isEffectivelyAnswered">
       <span *ngIf="correct == undefined" class="centered-text">
          Warte auf die Antworten der anderen Teilnehmer...
       </span>

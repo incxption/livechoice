@@ -38,7 +38,12 @@
    height: 5px;
    background-color: #ffffff;
 
-   animation: animate-progress-bar 1s linear forwards;
+   &.up {
+      animation: progress-bar-up 1s linear forwards;
+   }
+   &.down {
+      animation: progress-bar-down 1s linear forwards;
+   }
 }
 
 .centered-text {
@@ -73,12 +78,21 @@
    }
 }
 
-@keyframes animate-progress-bar {
+@keyframes progress-bar-up {
    0% {
       width: 0;
    }
    100% {
       width: 100%;
+   }
+}
+
+@keyframes progress-bar-down {
+   0% {
+      width: 100%;
+   }
+   100% {
+      width: 0;
    }
 }
 

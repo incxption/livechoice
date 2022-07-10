@@ -3,6 +3,7 @@ import { UnknownPlayer } from "../player/unknown-player"
 import {
    evaluateScore,
    isCorrect,
+   ONLY_READ_DURATION,
    PlayerToken,
    Question,
    RoomInfo,
@@ -17,6 +18,8 @@ export class Room {
 
    questions: Question[] = []
    questionIndex: number = 0
+
+   timeoutId: NodeJS.Timeout
    receivedAnswers: number = 0
    questionPromptTime: number = -1
 
@@ -64,6 +67,7 @@ export class Room {
    }
 
    public nextQuestion() {
+      clearTimeout(this.timeoutId)
       this.logger.log("Moving on to next question...")
 
       // send results to all players
@@ -106,6 +110,22 @@ export class Room {
                this.nextQuestion()
             }
          })
+      }
+
+      clearTimeout(this.timeoutId)
+      this.timeoutId = setTimeout(() => {
+         this.questionTimedOut()
+         this.nextQuestion()
+      }, question.timeout * 1000 + ONLY_READ_DURATION)
+   }
+
+   private questionTimedOut() {
+      for (const player of this.players) {
+         if (player.individualScores.length <= this.questionIndex) {
+            // player has not answered the question
+            player.lastQuestionResult = false
+            player.individualScores.push(0)
+         }
       }
    }
 

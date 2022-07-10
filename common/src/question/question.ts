@@ -1,4 +1,4 @@
-export const ONLY_READ_DURATION = 5
+export const ONLY_READ_DURATION = 5_000
 // TODO: change this back to 5_000
 
 export class Question {
@@ -6,6 +6,7 @@ export class Question {
    public number: number
    public name: string
    public prompt: string
+   public timeout: number
    public type: "multiple-choice" | "input"
 
    // scoring properties

@@ -32,4 +32,8 @@ export class QuestionPromptComponent {
          return undefined
       }
    }
+
+   get isEffectivelyAnswered() {
+      return this.isAnswered || this.correct != undefined
+   }
 }
