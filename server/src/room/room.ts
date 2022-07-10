@@ -1,14 +1,24 @@
 import { Socket } from "socket.io"
 import { UnknownPlayer } from "../player/unknown-player"
-import { isCorrect, PlayerToken, Question, RoomInfo, Serializer } from "@livechoice/common"
+import {
+   evaluateScore,
+   isCorrect,
+   PlayerToken,
+   Question,
+   RoomInfo,
+   Serializer
+} from "@livechoice/common"
 import { Player } from "../player/player"
 import { Moderator } from "../player/moderator"
 import { Logger } from "@nestjs/common"
 
 export class Room {
    playerTokens: PlayerToken[] = []
+
    questions: Question[] = []
    questionIndex: number = 0
+   receivedAnswers: number = 0
+   questionPromptTime: number = -1
 
    players: Player[] = []
    moderator: Moderator
@@ -67,22 +77,32 @@ export class Room {
       }
 
       // display leaderboard before next question?
+      this.players.forEach(player => {
+         this.logger.log(
+            player.token.properties.name +
+               ": " +
+               player.totalScore +
+               " " +
+               JSON.stringify(player.individualScores)
+         )
+      })
+
       // this.activateQuestion(this.questions[this.questionIndex])
    }
 
    public activateQuestion(question: Question) {
       this.moderator.displayQuestion(question)
+      this.receivedAnswers = 0
+      this.questionPromptTime = Date.now()
 
-      let answers = 0
       for (const player of this.players) {
          player.promptQuestion(question)
 
          player.client.once("question:answer", (answer: any) => {
             this.answerQuestion(player, answer)
-            answers++
+            this.receivedAnswers++
 
-            this.logger.log("answers:", answers, "players:", this.players.length)
-            if (answers === this.players.length) {
+            if (this.receivedAnswers === this.players.length) {
                this.nextQuestion()
             }
          })
@@ -92,6 +112,13 @@ export class Room {
    private answerQuestion(player: Player, answer: any) {
       const question = this.questions[this.questionIndex]
       player.lastQuestionResult = isCorrect(question, answer)
+
+      if (player.lastQuestionResult) {
+         const score = evaluateScore(question, this.receivedAnswers, this.questionPromptTime)
+         player.individualScores.push(score)
+      } else {
+         player.individualScores.push(0)
+      }
    }
 
    public getPlayerByToken(token: PlayerToken) {

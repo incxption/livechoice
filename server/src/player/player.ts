@@ -4,6 +4,7 @@ import { PlayerProperties, PlayerToken, Question } from "@livechoice/common"
 
 export class Player {
    public lastQuestionResult = false
+   public individualScores: number[] = []
 
    constructor(
       public client: Socket,
@@ -39,5 +40,9 @@ export class Player {
 
    public sendAnswerResult() {
       this.client.emit("question:answer-result", this.lastQuestionResult)
+   }
+
+   public get totalScore(): number {
+      return this.individualScores.reduce((a, b) => a + b, 0)
    }
 }

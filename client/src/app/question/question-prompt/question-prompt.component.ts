@@ -1,8 +1,6 @@
 import { Component, Input } from "@angular/core"
-import { Question } from "@livechoice/common"
+import { ONLY_READ_DURATION, Question } from "@livechoice/common"
 import { RoomService } from "../../services/room.service"
-
-export const ONLY_READ_DURATION = 5_000
 
 @Component({
    selector: "app-question-prompt",
