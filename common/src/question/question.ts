@@ -41,7 +41,7 @@ export function evaluateScore(
 ) {
    if (question.scoreType === "placement") {
       const multiplier = multipliers[previousAnswers]
-      return multiplier ? multiplier * question.maxScore : 0
+      return multiplier ? Math.round(multiplier * question.maxScore) : 0
    } else {
       const timeNeeded = Date.now() - questionPromptTime - ONLY_READ_DURATION
       const secondsNeeded = Math.floor(timeNeeded / 1000)
