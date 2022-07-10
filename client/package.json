@@ -1,5 +1,5 @@
 {
-   "name": "@livechoice/client",
+   "name": "livechoice-client",
    "version": "1.0.0",
    "scripts": {
       "ng": "ng",
@@ -12,6 +12,7 @@
    },
    "private": true,
    "dependencies": {
+      "livechoice-common": "1.0.0",
       "@angular/animations": "~13.2.0",
       "@angular/cdk": "^13.0.0",
       "@angular/common": "~13.2.0",

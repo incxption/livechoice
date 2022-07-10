@@ -1,6 +1,6 @@
 import { Room } from "./room"
 import { Socket } from "socket.io"
-import { PlayerToken } from "@livechoice/common"
+import { PlayerToken } from "livechoice-common"
 
 export class TestRoom extends Room {
    constructor() {

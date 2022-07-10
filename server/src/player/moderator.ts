@@ -1,6 +1,6 @@
 import { Socket } from "socket.io"
 import { Room } from "../room/room"
-import { PlayerToken, Question } from "@livechoice/common"
+import { PlayerToken, Question } from "livechoice-common"
 import { Logger } from "@nestjs/common"
 
 export class Moderator {

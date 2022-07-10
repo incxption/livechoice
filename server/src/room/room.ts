@@ -8,7 +8,7 @@ import {
    Question,
    RoomInfo,
    Serializer
-} from "@livechoice/common"
+} from "livechoice-common"
 import { Player } from "../player/player"
 import { Moderator } from "../player/moderator"
 import { Logger } from "@nestjs/common"

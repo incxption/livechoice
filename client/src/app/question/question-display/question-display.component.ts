@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core"
-import { Question } from "@livechoice/common"
+import { Question } from "livechoice-common"
 
 @Component({
    selector: "app-question-display",

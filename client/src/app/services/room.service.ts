@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import { Socket } from "ngx-socket-io"
 import { untilDestroyed } from "@ngneat/until-destroy"
-import { PlayerProperties, PlayerToken, Question, RoomInfo } from "@livechoice/common"
+import { PlayerProperties, PlayerToken, Question, RoomInfo } from "livechoice-common"
 
 type HandlerBlock = {
    roomNotFound: HandlerFunction<void>

@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { RoomService } from "../services/room.service"
-import { ONLY_READ_DURATION, Question } from "@livechoice/common"
+import { ONLY_READ_DURATION, Question } from "livechoice-common"
 
 @UntilDestroy()
 @Component({

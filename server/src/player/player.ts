@@ -1,6 +1,6 @@
 import { Socket } from "socket.io"
 import { Room } from "../room/room"
-import { PlayerProperties, PlayerToken, Question } from "@livechoice/common"
+import { PlayerProperties, PlayerToken, Question } from "livechoice-common"
 
 export class Player {
    public lastQuestionResult = false

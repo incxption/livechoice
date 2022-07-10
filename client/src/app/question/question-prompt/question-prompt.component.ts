@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core"
-import { ONLY_READ_DURATION, Question } from "@livechoice/common"
+import { ONLY_READ_DURATION, Question } from "livechoice-common"
 import { RoomService } from "../../services/room.service"
 
 @Component({

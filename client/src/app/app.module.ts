@@ -25,7 +25,8 @@ import { RoomAuthenticationComponent } from "./room/room-authentication/room-aut
 import { ModeratorComponent } from "./room/moderator/moderator.component"
 import { RoomWaitingComponent } from "./room/waiting/room-waiting.component";
 import { QuestionDisplayComponent } from './question/question-display/question-display.component';
-import { QuestionPromptComponent } from './question/question-prompt/question-prompt.component'
+import { QuestionPromptComponent } from './question/question-prompt/question-prompt.component';
+import { LeaderboardComponent } from './question/leaderboard/leaderboard.component'
 
 const socketConfig: SocketIoConfig = {
    url: "http://localhost:2020"
@@ -42,7 +43,8 @@ const socketConfig: SocketIoConfig = {
       ModeratorComponent,
       RoomWaitingComponent,
       QuestionDisplayComponent,
-      QuestionPromptComponent
+      QuestionPromptComponent,
+      LeaderboardComponent
    ],
    imports: [
       BrowserModule,

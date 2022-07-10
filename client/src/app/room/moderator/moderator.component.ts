@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core"
 import { RoomService } from "../../services/room.service"
-import { PlayerToken, Question, Serializer } from "@livechoice/common"
+import { PlayerToken, Question, Serializer } from "livechoice-common"
 import { UntilDestroy } from "@ngneat/until-destroy"
 import { FileHelperService } from "../../services/file-helper.service"
 
