@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { RoomService } from "../services/room.service"
 import { ONLY_READ_DURATION, Question } from "livechoice-common"
+import { LeaderboardData } from "../question/leaderboard/leaderboard.component"
 
 @UntilDestroy()
 @Component({
@@ -18,6 +19,9 @@ export class RoomComponent implements OnInit {
    question: Question | undefined
    questionCorrect: boolean | undefined
    onlyRead: boolean = false
+   revealAnswer: boolean = false
+
+   leaderboardData: LeaderboardData = []
 
    authenticationError: string = ""
    playerName: string = ""
@@ -66,11 +70,21 @@ export class RoomComponent implements OnInit {
 
          on.questionDisplay(question => {
             this.question = question
+            this.revealAnswer = false
             this.state = "question-display"
+         })
+
+         on.questionRevealAnswer(() => {
+            this.revealAnswer = true
          })
 
          on.questionResult(correct => {
             this.questionCorrect = correct
+         })
+
+         on.showLeaderboard(data => {
+            this.leaderboardData = data
+            this.state = "leaderboard"
          })
       })
    }

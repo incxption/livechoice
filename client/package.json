@@ -3,7 +3,7 @@
    "version": "1.0.0",
    "scripts": {
       "ng": "ng",
-      "start": "ng serve",
+      "start": "ng serve --disable-host-check",
       "start:dev": "ng serve",
       "build": "ng build",
       "build:with-deps": "cd ../common && yarn build && cd ../client && yarn build",

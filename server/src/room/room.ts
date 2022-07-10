@@ -74,24 +74,21 @@ export class Room {
       for (const player of this.players) {
          player.sendAnswerResult()
       }
+      this.moderator.showAnswer()
+      this.logger.log("showing answer")
 
-      this.questionIndex++
-      if (this.questionIndex >= this.questions.length) {
-         // game has ended
-      }
+      setTimeout(() => {
+         // display leaderboard before next question
+         this.showLeaderboard()
 
-      // display leaderboard before next question?
-      this.players.forEach(player => {
-         this.logger.log(
-            player.token.properties.name +
-               ": " +
-               player.totalScore +
-               " " +
-               JSON.stringify(player.individualScores)
-         )
-      })
+         this.questionIndex++
+         if (this.questionIndex >= this.questions.length) {
+            // TODO: show game ended?
+            return
+         }
 
-      // this.activateQuestion(this.questions[this.questionIndex])
+         setTimeout(() => this.activateQuestion(this.questions[this.questionIndex]), 6_000)
+      }, 5_000)
    }
 
    public activateQuestion(question: Question) {
@@ -100,6 +97,7 @@ export class Room {
       this.questionPromptTime = Date.now()
 
       for (const player of this.players) {
+         player.client.removeAllListeners("question:answer")
          player.promptQuestion(question)
 
          player.client.once("question:answer", (answer: any) => {
@@ -119,8 +117,22 @@ export class Room {
       }, question.timeout * 1000 + ONLY_READ_DURATION)
    }
 
+   private showLeaderboard() {
+      const data = this.players
+         .map(player => ({
+            name: player.token.properties.name,
+            score: player.totalScore
+         }))
+         .sort((a, b) => b.score - a.score)
+
+      for (const player of this.players) {
+         player.client.emit("leaderboard", data)
+      }
+   }
+
    private questionTimedOut() {
       for (const player of this.players) {
+         player.client.removeAllListeners("question:answer")
          if (player.individualScores.length <= this.questionIndex) {
             // player has not answered the question
             player.lastQuestionResult = false

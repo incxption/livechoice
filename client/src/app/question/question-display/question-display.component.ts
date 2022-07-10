@@ -8,4 +8,16 @@ import { Question } from "livechoice-common"
 })
 export class QuestionDisplayComponent {
    @Input() question!: Question
+   @Input() reveal!: boolean
+
+   get correctAnswer(): string {
+      if (this.question.type === "input") {
+         return this.question.correctAnswers.join(" oder ")
+      } else {
+         return this.question.answers
+            .filter(c => c.correct)
+            .map(c => c.text)
+            .join(" oder ")
+      }
+   }
 }

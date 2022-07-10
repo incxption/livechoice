@@ -23,10 +23,10 @@ import { CreateComponent } from "./create/create.component"
 import { RoomStatusComponent } from "./room/room-status/room-status.component"
 import { RoomAuthenticationComponent } from "./room/room-authentication/room-authentication.component"
 import { ModeratorComponent } from "./room/moderator/moderator.component"
-import { RoomWaitingComponent } from "./room/waiting/room-waiting.component";
-import { QuestionDisplayComponent } from './question/question-display/question-display.component';
-import { QuestionPromptComponent } from './question/question-prompt/question-prompt.component';
-import { LeaderboardComponent } from './question/leaderboard/leaderboard.component'
+import { RoomWaitingComponent } from "./room/waiting/room-waiting.component"
+import { QuestionDisplayComponent } from "./question/question-display/question-display.component"
+import { QuestionPromptComponent } from "./question/question-prompt/question-prompt.component"
+import { LeaderboardComponent } from "./question/leaderboard/leaderboard.component"
 
 const socketConfig: SocketIoConfig = {
    url: "http://localhost:2020"

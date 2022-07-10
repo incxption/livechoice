@@ -38,6 +38,10 @@ export class Moderator {
       this.client.emit("question:display", question)
    }
 
+   public showAnswer() {
+      this.client.emit("question:reveal-answer")
+   }
+
    public is(client: Socket) {
       return this.client === client
    }

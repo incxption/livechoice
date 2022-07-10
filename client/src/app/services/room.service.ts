@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core"
 import { Socket } from "ngx-socket-io"
 import { untilDestroyed } from "@ngneat/until-destroy"
 import { PlayerProperties, PlayerToken, Question, RoomInfo } from "livechoice-common"
+import { LeaderboardData } from "../question/leaderboard/leaderboard.component"
 
 type HandlerBlock = {
    roomNotFound: HandlerFunction<void>
@@ -12,8 +13,10 @@ type HandlerBlock = {
    roomTokens: HandlerFunction<PlayerToken[]>
    playerProperties: HandlerFunction<PlayerProperties>
    questionDisplay: HandlerFunction<Question>
+   questionRevealAnswer: HandlerFunction<void>
    questionPrompt: HandlerFunction<Question>
    questionResult: HandlerFunction<boolean>
+   showLeaderboard: HandlerFunction<LeaderboardData>
 }
 
 type HandlerFunction<T> = (callback: (data: T) => void) => void
@@ -58,8 +61,10 @@ export class RoomService {
          roomTokens: createHandlerFunction<PlayerToken[]>("room:tokens"),
          playerProperties: createHandlerFunction<PlayerProperties>("player:properties"),
          questionDisplay: createHandlerFunction<Question>("question:display"),
+         questionRevealAnswer: createHandlerFunction<void>("question:reveal-answer"),
          questionPrompt: createHandlerFunction<Question>("question:prompt"),
-         questionResult: createHandlerFunction<boolean>("question:answer-result")
+         questionResult: createHandlerFunction<boolean>("question:answer-result"),
+         showLeaderboard: createHandlerFunction<LeaderboardData>("leaderboard")
       })
    }
 

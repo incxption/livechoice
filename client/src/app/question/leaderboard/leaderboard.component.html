@@ -1,0 +1,16 @@
+<div class="blue-container">
+   <div class="question-header">
+      <h1 class="question-name">Platzierungen</h1>
+   </div>
+   <div class="leaderboard">
+      <div
+         class="leaderboard-item"
+         *ngFor="let player of players; index as i"
+         [class.first]="i === 0"
+      >
+         <span class="place">{{ i + 1 + "." }}</span>
+         <span class="name">{{ player.name }}</span>
+         <span class="score">{{ player.score + " Punkte" }}</span>
+      </div>
+   </div>
+</div>

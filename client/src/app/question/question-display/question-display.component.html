@@ -5,6 +5,7 @@
    </div>
 
    <h2 class="prompt">{{ question.prompt }}</h2>
+   <p class="answer" *ngIf="reveal">Richtige Antwort: {{ correctAnswer }}</p>
 
    <div class="fixed-toast" [ngSwitch]="question.type">
       <span *ngSwitchCase="'multiple-choice'">

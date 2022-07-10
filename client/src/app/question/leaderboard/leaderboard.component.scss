@@ -1,0 +1,42 @@
+.leaderboard {
+   position: fixed;
+   bottom: 48vh;
+   left: 50vw;
+   transform: translate(-50%, 50%);
+
+   width: min(900px, 80vw);
+}
+
+.leaderboard-item {
+   width: 100%;
+
+   color: #ffffff;
+   background-color: rgba(255, 255, 255, 0.15);
+
+   border-radius: 5px;
+   padding: 0.5rem 1.2rem;
+   margin-bottom: 0.4rem;
+
+   font-size: 1.875rem;
+}
+
+.first {
+   background-color: #f7b731;
+   transform: scale(1.03);
+}
+
+.place {
+   display: inline-block;
+   width: max(5%, 50px);
+}
+
+.name {
+   display: inline-block;
+   font-weight: 500;
+   width: 50%;
+}
+
+.score {
+   display: inline-block;
+   width: 30%;
+}
