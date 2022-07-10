@@ -8,6 +8,7 @@ export class Question {
    public prompt: string
    public timeout: number
    public type: "multiple-choice" | "input"
+   public image?: string
 
    // scoring properties
    public scoreType: "placement" | "time"

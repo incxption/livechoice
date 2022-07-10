@@ -114,7 +114,7 @@ export class Room {
       this.timeoutId = setTimeout(() => {
          this.questionTimedOut()
          this.nextQuestion()
-      }, question.timeout * 1000 + ONLY_READ_DURATION)
+      }, (question.timeout ?? 30) * 1000 + ONLY_READ_DURATION)
    }
 
    private showLeaderboard() {

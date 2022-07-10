@@ -4,8 +4,15 @@
       <h1 class="question-name">{{ question.name }}</h1>
    </div>
 
-   <h2 class="prompt">{{ question.prompt }}</h2>
+   <h2
+      class="prompt"
+      [ngStyle]="{ 'font-size': question.prompt.length > 250 ? '3.25rem' : undefined }"
+   >
+      {{ question.prompt }}
+   </h2>
    <p class="answer" *ngIf="reveal">Richtige Antwort: {{ correctAnswer }}</p>
+
+   <img *ngIf="question.image" class="prompt-image" [src]="question.image" alt="" />
 
    <div class="fixed-toast" [ngSwitch]="question.type">
       <span *ngSwitchCase="'multiple-choice'">
