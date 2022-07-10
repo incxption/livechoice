@@ -45,8 +45,10 @@ export function evaluateScore(
    } else {
       const timeNeeded = Date.now() - questionPromptTime - ONLY_READ_DURATION
       const secondsNeeded = Math.floor(timeNeeded / 1000)
-      const lostPoints = Math.floor(secondsNeeded / 5) * 5
 
-      return question.maxScore - lostPoints
+      const lostPoints = Math.floor(secondsNeeded / 5) * 5
+      const minimumGranted = Math.round(question.maxScore * 0.3)
+
+      return Math.max(question.maxScore - lostPoints, minimumGranted)
    }
 }
