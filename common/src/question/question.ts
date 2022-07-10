@@ -16,3 +16,11 @@ export interface Choice {
    text: string
    correct: boolean
 }
+
+export function isCorrect(question: Question, answer: any) {
+   if (question.type === "multiple-choice") {
+      return question.answers[answer].correct
+   } else if (question.type === "input") {
+      return question.correctAnswers.includes(answer)
+   }
+}

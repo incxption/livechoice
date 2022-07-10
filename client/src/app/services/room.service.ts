@@ -13,6 +13,7 @@ type HandlerBlock = {
    playerProperties: HandlerFunction<PlayerProperties>
    questionDisplay: HandlerFunction<Question>
    questionPrompt: HandlerFunction<Question>
+   questionResult: HandlerFunction<boolean>
 }
 
 type HandlerFunction<T> = (callback: (data: T) => void) => void
@@ -57,11 +58,16 @@ export class RoomService {
          roomTokens: createHandlerFunction<PlayerToken[]>("room:tokens"),
          playerProperties: createHandlerFunction<PlayerProperties>("player:properties"),
          questionDisplay: createHandlerFunction<Question>("question:display"),
-         questionPrompt: createHandlerFunction<Question>("question:prompt")
+         questionPrompt: createHandlerFunction<Question>("question:prompt"),
+         questionResult: createHandlerFunction<boolean>("question:answer-result")
       })
    }
 
    public startRoom() {
       this.socket.emit("room:start")
+   }
+
+   public sendMultipleChoiceAnswer(index: number) {
+      this.socket.emit("question:answer", index)
    }
 }

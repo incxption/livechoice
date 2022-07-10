@@ -17,6 +17,7 @@ export class RoomComponent implements OnInit {
    state = "joining"
 
    question: Question | undefined
+   questionCorrect: boolean | undefined
    onlyRead: boolean = false
 
    authenticationError: string = ""
@@ -55,6 +56,7 @@ export class RoomComponent implements OnInit {
          on.questionPrompt(question => {
             this.question = question
             this.onlyRead = true
+            this.questionCorrect = undefined
             this.state = "question-prompt"
 
             clearTimeout(onlyReadTimeoutId)
@@ -66,6 +68,10 @@ export class RoomComponent implements OnInit {
          on.questionDisplay(question => {
             this.question = question
             this.state = "question-display"
+         })
+
+         on.questionResult(correct => {
+            this.questionCorrect = correct
          })
       })
    }

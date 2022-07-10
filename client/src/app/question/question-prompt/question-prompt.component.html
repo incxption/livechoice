@@ -1,12 +1,18 @@
-<div class="blue-container">
+<div class="blue-container" [ngStyle]="{ backgroundColor: backgroundColor }">
    <div class="question-header">
       <p class="question-number">Frage {{ question.number }}</p>
       <h1 class="question-name">{{ question.name }}</h1>
    </div>
 
-   <div *ngIf="!onlyRead" [ngSwitch]="question.type">
+   <div *ngIf="!onlyRead && !isAnswered" [ngSwitch]="question.type">
       <div *ngSwitchCase="'multiple-choice'" class="answer-grid">
-         <button *ngFor="let answer of question.answers" class="answer">{{ answer.text }}</button>
+         <button
+            *ngFor="let answer of question.answers; index as i"
+            class="answer"
+            (click)="sendMultipleChoiceAnswer(i)"
+         >
+            {{ answer.text }}
+         </button>
       </div>
       <div *ngSwitchCase="'input'">
          <input type="text" name="Antwort" id="answer" />
@@ -14,10 +20,11 @@
    </div>
 
    <div
+      *ngIf="!isAnswered"
       class="fixed-toast"
       [ngSwitch]="question.type"
-      [class.bigger-toast]="onlyRead"
       [ngStyle]="{ 'animation-duration': onlyReadDuration + 's' }"
+      [class.bigger-toast]="onlyRead"
    >
       <span *ngSwitchCase="'multiple-choice'">Klicke auf die richtige Antwort.</span>
       <span *ngSwitchCase="'input'">
@@ -30,4 +37,18 @@
       class="progress-bar"
       [ngStyle]="{ 'animation-duration': onlyReadDuration + 's' }"
    ></span>
+
+   <div *ngIf="isAnswered">
+      <span *ngIf="correct == undefined" class="centered-text">
+         Warte auf die Antworten der anderen Teilnehmer...
+      </span>
+      <div *ngIf="correct == true" class="centered-text question-result">
+         <nb-icon icon="checkmark-circle-2"></nb-icon>
+         Richtig!
+      </div>
+      <div *ngIf="correct == false" class="centered-text question-result">
+         <nb-icon icon="close-circle"></nb-icon>
+         Falsch!
+      </div>
+   </div>
 </div>

@@ -3,8 +3,10 @@ import { Room } from "../room/room"
 import { PlayerProperties, PlayerToken, Question } from "@livechoice/common"
 
 export class Player {
+   public lastQuestionResult = false
+
    constructor(
-      private client: Socket,
+      public client: Socket,
       private room: Room,
       public token: PlayerToken,
       private properties: PlayerProperties
@@ -28,9 +30,14 @@ export class Player {
    public disconnected() {
       this.token.used = false
       this.room.moderator?.updateTokens()
+      this.room.players.splice(this.room.players.indexOf(this), 1)
    }
 
    public promptQuestion(question: Question) {
       this.client.emit("question:prompt", question)
+   }
+
+   public sendAnswerResult() {
+      this.client.emit("question:answer-result", this.lastQuestionResult)
    }
 }

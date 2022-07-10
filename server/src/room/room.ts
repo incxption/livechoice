@@ -1,16 +1,19 @@
 import { Socket } from "socket.io"
 import { UnknownPlayer } from "../player/unknown-player"
-import { PlayerToken, Question, RoomInfo, Serializer } from "@livechoice/common"
+import { isCorrect, PlayerToken, Question, RoomInfo, Serializer } from "@livechoice/common"
 import { Player } from "../player/player"
 import { Moderator } from "../player/moderator"
+import { Logger } from "@nestjs/common"
 
 export class Room {
    playerTokens: PlayerToken[] = []
    questions: Question[] = []
    questionIndex: number = 0
 
-   private players: Player[] = []
+   players: Player[] = []
    moderator: Moderator
+
+   private readonly logger = new Logger("Room " + this.name)
 
    constructor(public id: string, public name: string) {}
 
@@ -50,11 +53,45 @@ export class Room {
       this.activateQuestion(this.questions[0])
    }
 
+   public nextQuestion() {
+      this.logger.log("Moving on to next question...")
+
+      // send results to all players
+      for (const player of this.players) {
+         player.sendAnswerResult()
+      }
+
+      this.questionIndex++
+      if (this.questionIndex >= this.questions.length) {
+         // game has ended
+      }
+
+      // display leaderboard before next question?
+      // this.activateQuestion(this.questions[this.questionIndex])
+   }
+
    public activateQuestion(question: Question) {
       this.moderator.displayQuestion(question)
+
+      let answers = 0
       for (const player of this.players) {
          player.promptQuestion(question)
+
+         player.client.once("question:answer", (answer: any) => {
+            this.answerQuestion(player, answer)
+            answers++
+
+            this.logger.log("answers:", answers, "players:", this.players.length)
+            if (answers === this.players.length) {
+               this.nextQuestion()
+            }
+         })
       }
+   }
+
+   private answerQuestion(player: Player, answer: any) {
+      const question = this.questions[this.questionIndex]
+      player.lastQuestionResult = isCorrect(question, answer)
    }
 
    public getPlayerByToken(token: PlayerToken) {
