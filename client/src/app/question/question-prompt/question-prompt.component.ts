@@ -23,6 +23,10 @@ export class QuestionPromptComponent {
       this.isAnswered = false
    }
 
+   focusInput() {
+      setTimeout(() => this.inputElement?.nativeElement?.focus(), 50)
+   }
+
    sendMultipleChoiceAnswer(index: number) {
       this.roomService.sendAnswer(index)
       this.isAnswered = true

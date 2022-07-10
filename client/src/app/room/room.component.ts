@@ -79,6 +79,7 @@ export class RoomComponent implements OnInit {
             clearTimeout(onlyReadTimeoutId)
             onlyReadTimeoutId = setTimeout(() => {
                this.onlyRead = false
+               this.questionPrompt?.focusInput()
             }, ONLY_READ_DURATION)
          })
 

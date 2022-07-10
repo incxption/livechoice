@@ -25,7 +25,8 @@
             id="answer"
             class="answer-field"
             placeholder="Antwort eingeben"
-            autofocus="autofocus"
+            autofocus
+            autocomplete="off"
             (keydown.enter)="sendInputAnswer()"
             (keydown)="filterInput($event)"
          />
