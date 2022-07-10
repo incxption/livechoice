@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core"
 
-export type LeaderboardData = { name: string; score: number }[]
+export type LeaderboardData = { name: string; score: number; gained: number }[]
 
 @Component({
    selector: "app-leaderboard",

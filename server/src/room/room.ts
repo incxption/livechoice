@@ -121,7 +121,8 @@ export class Room {
       const data = this.players
          .map(player => ({
             name: player.token.properties.name,
-            score: player.totalScore
+            score: player.totalScore,
+            gained: player.individualScores[player.individualScores.length - 1] ?? 0
          }))
          .sort((a, b) => b.score - a.score)
 
