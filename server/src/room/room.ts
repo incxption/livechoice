@@ -125,9 +125,7 @@ export class Room {
          }))
          .sort((a, b) => b.score - a.score)
 
-      for (const player of this.players) {
-         player.client.emit("leaderboard", data)
-      }
+      this.moderator.client.emit("leaderboard", data)
    }
 
    private questionTimedOut() {

@@ -14,8 +14,22 @@
             {{ answer.text }}
          </button>
       </div>
-      <div *ngSwitchCase="'input'">
-         <input type="text" name="Antwort" id="answer" />
+      <div
+         *ngSwitchCase="'input'"
+         style="display: flex; flex-direction: column; align-items: center"
+      >
+         <input
+            #inputElement
+            type="text"
+            name="Antwort"
+            id="answer"
+            class="answer-field"
+            placeholder="Antwort eingeben"
+            autofocus="autofocus"
+            (keydown.enter)="sendInputAnswer()"
+            (keydown)="filterInput($event)"
+         />
+         <button class="confirm-button" (click)="sendInputAnswer()">Bestätigen</button>
       </div>
    </div>
 

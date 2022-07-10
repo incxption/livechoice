@@ -1,9 +1,10 @@
-import { Component, OnInit } from "@angular/core"
+import { Component, OnInit, ViewChild } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy"
 import { RoomService } from "../services/room.service"
 import { ONLY_READ_DURATION, Question } from "livechoice-common"
 import { LeaderboardData } from "../question/leaderboard/leaderboard.component"
+import { QuestionPromptComponent } from "../question/question-prompt/question-prompt.component"
 
 @UntilDestroy()
 @Component({
@@ -16,6 +17,8 @@ export class RoomComponent implements OnInit {
    roomName: string = ""
    state = "joining"
 
+   @ViewChild(QuestionPromptComponent) questionPrompt!: QuestionPromptComponent
+
    question: Question | undefined
    questionCorrect: boolean | undefined
    onlyRead: boolean = false
@@ -25,6 +28,16 @@ export class RoomComponent implements OnInit {
 
    authenticationError: string = ""
    playerName: string = ""
+
+   demo = {
+      number: 2,
+      name: "Würfel",
+      prompt: "Wie viele Seiten hat ein Würfel?",
+      type: "input",
+      scoreType: "placement",
+      maxScore: 50,
+      correctAnswers: [6]
+   } as any
 
    constructor(private route: ActivatedRoute, private roomService: RoomService) {}
 
@@ -58,6 +71,7 @@ export class RoomComponent implements OnInit {
 
          on.questionPrompt(question => {
             this.question = question
+            this.questionPrompt?.resetAnswered()
             this.onlyRead = true
             this.questionCorrect = undefined
             this.state = "question-prompt"

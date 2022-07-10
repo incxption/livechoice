@@ -6,7 +6,7 @@ import { Logger } from "@nestjs/common"
 export class Moderator {
    private logger = new Logger("Moderator")
 
-   constructor(private client: Socket, private room: Room) {}
+   constructor(public client: Socket, private room: Room) {}
 
    public createdRoom() {
       this.client.emit("room:created", this.room.getInfo())

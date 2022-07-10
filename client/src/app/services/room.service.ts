@@ -72,7 +72,7 @@ export class RoomService {
       this.socket.emit("room:start")
    }
 
-   public sendMultipleChoiceAnswer(index: number) {
-      this.socket.emit("question:answer", index)
+   public sendAnswer(answer: any) {
+      this.socket.emit("question:answer", answer)
    }
 }
